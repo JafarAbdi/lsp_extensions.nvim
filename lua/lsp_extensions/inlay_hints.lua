@@ -62,7 +62,7 @@ inlay_hints.get_callback = function(opts)
     if err or type(result) == 'number' then
       return
     end
-
+    -- print(vim.inspect(result))
     if not result or vim.tbl_isempty(result) then
       return
     end
@@ -137,7 +137,22 @@ inlay_hints.get_callback = function(opts)
 end
 
 inlay_hints.get_params = function()
-  return {textDocument = vim.lsp.util.make_text_document_params()}
+  local params = {
+    textDocument = vim.lsp.util.make_text_document_params(),
+    namehintOptions = {
+      showEnumExpressions = true,
+      showConstructorExpressions = true,
+      showNonConstReferences = true,
+      showArrayIndices = true
+    },
+    typehintOptions = {
+      showForVariables = true,
+      showForLambdas = true,
+      showDeducedReturnTypes = true,
+      showObviousTypes = false
+    }
+  }
+  return params
 end
 
 inlay_hints.clear = function()
